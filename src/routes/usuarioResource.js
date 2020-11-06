@@ -1,6 +1,9 @@
 import express from 'express';
 const router = express.Router();
-import usuarioModel from '../models/usuario'
+import usuarioModel from '../models/usuario';
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 
 /*busqueda de usuario por identificador. */
@@ -32,7 +35,8 @@ router.get('/usuarios', async(request, response) => {
 /**Crear usuario */
 router.post('/usuario', async(request, response) => {
   const body = request.body;
-try {
+  body.password = bcrypt.hashSync(request.body.password, saltRounds);
+  try {
   const jsonBody = await usuarioModel.create(body);
   response.status(201).json(jsonBody);
 }catch(error){

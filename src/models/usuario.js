@@ -10,9 +10,17 @@ const usuarioSchema = mongoose.Schema({
     email: {type: String, required: [true, 'Email  is required']},
     rol: {type: String, default: 'USER', enum: roles},
     activo: {type: Boolean, default: true},
-    password: {type: String, required: [true, 'password is required']}
+    password: {type: String, required: [true, 'password is required']},
+    fecha: {type: Date, default: Date.now()}
 });
 
+//para no devolver la contasenia
+usuarioSchema.methods.toJSON = function(){
+    let user = this;
+    let userObject = user.toObject();
+    delete userObject.password;
+    return userObject;
+};
 const usuario = mongoose.model('usuario', usuarioSchema);
 
 export default usuario;
