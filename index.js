@@ -20,6 +20,7 @@ db.once('open',()  => {
 });
 
 app.use('/api', require('./src/routes/usuarioResource'));
+app.use('/api', require('./src/routes/login'));
 
 app.set('puerto', process.env.PORT || 3000);
 app.listen(app.get('puerto'), () => {
