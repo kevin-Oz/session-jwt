@@ -4,6 +4,9 @@ import { adminToken } from '../jwt/token'
 
 import userModel from '../models/usuario';
 
+/**
+ * generando ruta de logeo y asignandole un token a su sesion
+ */
 router.post('/login', async (request, response)=>{
     const body = request.body;
     try {

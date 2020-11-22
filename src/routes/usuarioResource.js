@@ -61,7 +61,7 @@ try {
 }
 });
 
-/**Eliminar usuario (no se ocupará, creado solo por referencia) */
+/**Eliminar usuario (solo para ADMIN ) */
 router.delete('/usuario/:id',[authentication, authorization], async(request, response) => {
   const _id = request.params.id;
 try {
