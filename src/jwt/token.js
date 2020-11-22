@@ -1,7 +1,7 @@
+const { request } = require('express');
 const jwt = require('jsonwebtoken');
-
 /*
-patron Object Literals para la administracion de tokens
+ Object Literals para la administracion del token
 */
 const adminToken = {
     generar: (data)=>{
@@ -10,8 +10,14 @@ const adminToken = {
           }, 'secret', { expiresIn: 60 * 60 }); 
     },
 
-    verificar: (token)=>{
-        console.log(token)
+    verificar: (token, response, next)=>{
+        jwt.verify(token, 'secret',(error, decoded)=>{
+            if(error){
+                return response.status(400).json({mensaje:"usuario no válido"});
+            }
+            request.usuario = decoded.data;
+            next();
+        });
     }
 }
 

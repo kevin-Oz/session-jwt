@@ -7,12 +7,12 @@ import userModel from '../models/usuario';
 router.post('/login', async (request, response)=>{
     const body = request.body;
     try {
-        const usuarioDb = await userModel.findOne({email: body.email});
-        if(!usuarioDb){
-          return  response.status(400).json({mesaje:'usuario no existe'});
+        const usuarioJson = await userModel.findOne({email: body.email});
+        if(!usuarioJson){
+          return  response.status(400).json({mesaje:'el usuario no existe'});
         }
-        const token = adminToken.generar(usuarioDb);
-        response.status(200).json({data:usuarioDb,token});
+        const token = adminToken.generar(usuarioJson);
+        response.status(200).json({data:usuarioJson,token});
     } catch (error) {
         return  response.status(400).json({mesaje:'ocurrio un error'});
     }

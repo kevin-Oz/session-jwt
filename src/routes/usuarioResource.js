@@ -1,4 +1,5 @@
 import express from 'express';
+import { authentication, authorization } from '../middleware/auth';
 const router = express.Router();
 import usuarioModel from '../models/usuario';
 
@@ -47,7 +48,7 @@ router.post('/usuario', async(request, response) => {
 });
 
 /**Editar usuario */
-router.put('/usuario/:id', async(request, response) => {
+router.put('/usuario/:id',authentication,async(request, response) => {
   const _id = request.params.id;
   const body = request.body;
 try {
@@ -61,9 +62,8 @@ try {
 });
 
 /**Eliminar usuario (no se ocupará, creado solo por referencia) */
-router.delete('/usuario/:id', async(request, response) => {
+router.delete('/usuario/:id',[authentication, authorization], async(request, response) => {
   const _id = request.params.id;
-  const body = request.body;
 try {
   const jsonBody = await usuarioModel.findByIdAndRemove(_id);
   response.status(200).json(jsonBody);
