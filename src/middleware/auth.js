@@ -4,7 +4,7 @@ verificar si el usuario esta logeado
  */
 const authentication = (request, response, next) =>{
     const token = request.get('token');
-    adminToken.verificar(token, response, next);
+    adminToken.verificar(request, token, response, next);
 }
 
 /*

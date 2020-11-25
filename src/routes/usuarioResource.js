@@ -8,7 +8,7 @@ const saltRounds = 10;
 
 
 /*busqueda de usuario por identificador. */
-router.get('/usuario/:id', async(request, response) => {
+router.get('/usuario/:id', authentication, async(request, response) => {
     const _id = request.params.id;
   try {
     const jsonBody = await usuarioModel.findById(_id);
@@ -21,8 +21,7 @@ router.get('/usuario/:id', async(request, response) => {
 });
 
 /* listar todos los usuarios.*/
-router.get('/usuarios', async(request, response) => {
-    const body = request.body;
+router.get('/usuarios', authentication, async(request, response) => {
   try {
     const jsonBody = await usuarioModel.find();
 	  response.status(200).json(jsonBody);
