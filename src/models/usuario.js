@@ -9,9 +9,9 @@ const usuarioSchema = mongoose.Schema({
     username: {type: String, required: [true, 'username  is required']},
     email: {type: String, required: [true, 'Email  is required']},
     rol: {type: String, default: 'USER', enum: roles},
-    activo: {type: Boolean, default: true},
+    active: {type: Boolean, default: true},
     password: {type: String, required: [true, 'password is required']},
-    fecha: {type: Date, default: Date.now()}
+    date: {type: Date, default: Date.now()}
 });
 
 //para no devolver la contasenia

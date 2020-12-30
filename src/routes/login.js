@@ -3,8 +3,6 @@ const router = express.Router();
 import { adminToken } from '../jwt/token'
 
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
 import userModel from '../models/usuario';
 
 /**

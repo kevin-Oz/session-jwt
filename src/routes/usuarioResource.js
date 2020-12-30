@@ -2,6 +2,8 @@ import express from 'express';
 import { authentication, authorization } from '../middleware/auth';
 const router = express.Router();
 import usuarioModel from '../models/usuario';
+import { mail } from '../utils/sendgrid';
+
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -38,6 +40,7 @@ router.post('/usuario', async(request, response) => {
   body.password = bcrypt.hashSync(request.body.password, saltRounds);
   try {
   const jsonBody = await usuarioModel.create(body);
+ mail.sendMail(body.email, 'Registro exitoso!', 'Bienvenido');
   response.status(201).json(jsonBody);
 }catch(error){
   return response.status(400).json({

@@ -12,7 +12,8 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://admin_user:admin@cluster0.ipdgs.mongodb.net/registro?retryWrites=true&w=majority', {useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost/registros', {useNewUrlParser: true,useUnifiedTopology: true});
+//mongoose.connect('mongodb+srv://admin_user:admin@cluster0.ipdgs.mongodb.net/registro?retryWrites=true&w=majority', {useNewUrlParser: true,useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open',()  => {
@@ -20,6 +21,7 @@ db.once('open',()  => {
 });
 
 app.use('/api', require('./src/routes/usuarioResource'));
+app.use('/api', require('./src/routes/taskResource'));
 app.use('/api', require('./src/routes/login'));
 
 app.set('puerto', process.env.PORT || 3000);
