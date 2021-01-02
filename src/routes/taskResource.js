@@ -18,8 +18,9 @@ router.get('/task/:id', authentication, async(request, response) => {
 
 /* listar todas las tareas referentes a un usuario.*/
 router.get('/task', authentication, async(request, response) => {
+  const userId = request.usuario._id;
   try {
-    const jsonBody = await taskModel.find();
+    const jsonBody = await taskModel.find({userId});
 	  response.status(200).json(jsonBody);
   }catch(error){
 	  return response.status(500).json({
@@ -31,6 +32,7 @@ router.get('/task', authentication, async(request, response) => {
 /**Crear tarea  */
 router.post('/task',authentication, async(request, response) => {
   const body = request.body;
+  body.userId = request.usuario._id;
   try {
   const jsonBody = await taskModel.create(body);
   response.status(201).json(jsonBody);
