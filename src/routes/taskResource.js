@@ -3,7 +3,6 @@ import { authentication } from '../middleware/auth';
 const router = express.Router();
 import taskModel from '../models/task';
 
-
 /*busqueda de tarea por identificador. */
 router.get('/task/:id', authentication, async(request, response) => {
     const _id = request.params.id;

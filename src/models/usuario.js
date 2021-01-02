@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 
 const roles = {
     values: ['ADMIN','USER'],
@@ -7,7 +8,7 @@ const roles = {
 
 const usuarioSchema = mongoose.Schema({
     username: {type: String, required: [true, 'username  is required']},
-    email: {type: String, required: [true, 'Email  is required']},
+    email: {type: String, required: [true, 'Email  is required'], unique: true},
     rol: {type: String, default: 'USER', enum: roles},
     active: {type: Boolean, default: true},
     password: {type: String, required: [true, 'password is required']},
@@ -21,6 +22,7 @@ usuarioSchema.methods.toJSON = function(){
     delete userObject.password;
     return userObject;
 };
+usuarioSchema.plugin(uniqueValidator, { message: 'Error,se espera que {PATH} sea unico.' });
 const usuario = mongoose.model('usuario', usuarioSchema);
 
 export default usuario;
